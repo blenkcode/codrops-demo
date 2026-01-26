@@ -5,10 +5,9 @@ const ENTER = (nextContainer) => {
   const t = nextContainer.querySelector("h1");
   const co = nextContainer.querySelector(".page_content");
   const ps = nextContainer.querySelector(".p_anim");
-  const items = document.querySelectorAll(".items_anim");
 
   if (!t) return;
-  console.log(nextContainer);
+
   const tl = gsap.timeline({
     defaults: {
       force3D: true,
@@ -34,7 +33,7 @@ const ENTER = (nextContainer) => {
       },
       ease: "power3.out",
     },
-    0,
+    0.3,
   )
     .to(
       co,

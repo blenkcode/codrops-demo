@@ -1,5 +1,5 @@
 import { gsap, customEases } from "../../lib/index.js";
-
+import ENTER from "../../animations/Enter.js";
 export async function defaultTransition(currentContainer, nextContainer) {
   const content = nextContainer.querySelector("#page_content");
 
@@ -60,6 +60,9 @@ export async function defaultTransition(currentContainer, nextContainer) {
       },
       0,
     );
+  tl.add(() => {
+    ENTER(nextContainer);
+  }, 0);
 
   return tl;
 }

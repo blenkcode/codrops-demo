@@ -74,10 +74,6 @@ export async function executeTransition({
     activeTimeline = null;
   });
 
-  activeTimeline.add(() => {
-    ENTER(nextContainer);
-  }, 0);
-
   await activeTimeline.then();
 
   if (signal?.aborted) {
