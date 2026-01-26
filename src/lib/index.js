@@ -19,7 +19,7 @@ export const customEases = {
   ),
   pageTransition: CustomEase.create(
     "pageTransition",
-    "M0,0 C0.178,0.031 0.279,0.802 0.345,0.856 0.421,0.918 0.374,1 1,1 ",
+    "M0,0 C0.43,0.01 0.525,0.67 0.683,0.818 0.875,0.998 1,1 1,1 ",
   ),
 };
 

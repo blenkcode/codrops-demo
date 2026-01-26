@@ -1,6 +1,7 @@
 .links {
   position: relative;
   display: block;
+  text-transform: uppercase;
 }
 .line_a {
   width: 100%;

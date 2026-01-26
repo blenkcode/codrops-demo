@@ -1,33 +1,29 @@
-#page_content {
-  padding: 70px 20px 20px 20px;
-}
-/* ✅ Force GPU acceleration globalement */
-[data-transition="wrapper"] {
-  position: relative;
-  overflow: hidden;
-  transform: translateZ(0); /* Force GPU layer */
-  will-change: contents; /* Hint au browser */
-}
-
-[data-transition="container"] {
-  /* ✅ Propriétés optimisées GPU */
-  backface-visibility: hidden;
-  perspective: 1000px;
-  transform: translateZ(0);
-
-  /* ✅ Smooth rendering */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* ✅ Pendant la transition */
-[data-transition="container"][data-transitioning="true"] {
-  will-change: transform, opacity;
-  pointer-events: none;
-}
-
 .page_content {
-  /* ✅ Force GPU pour le contenu aussi */
   transform: translateZ(0);
   backface-visibility: hidden;
+}
+#page_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.p_anim {
+  font-size: 12px;
+}
+
+.hero_content {
+  width: 20vw;
+  margin-bottom: 20px;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  justify-content: space-between;
+  height: 100vh;
+}
+.img_hero {
+  transform: translateY(150%) translateZ(0);
 }

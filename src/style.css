@@ -17,12 +17,11 @@ body {
   font-family: Lay;
   background-color: #000000;
   color: var(--text_color);
-  min-height: 100vh;
+
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 main {
   background-color: #ffffff;
   width: 100%;
-  min-height: 100vh;
 }

@@ -1,4 +1,5 @@
 import { gsap } from "../lib/index.js";
+
 const routes = {
   "/": {
     namespace: "home",
@@ -10,16 +11,24 @@ const routes = {
   },
 };
 
+let executeTransitionModule = null;
+let enterModule = null;
+
 class Router {
   constructor() {
     this.currentPage = null;
     this.currentNamespace = null;
     this.isTransitioning = false;
     this.abortController = null;
+    this.cache = new Map();
   }
 
-  init() {
+  async init() {
+    executeTransitionModule = await import("../transitions/pageTransition.js");
+    enterModule = await import("../animations/Enter.js");
+
     this.loadInitialPage();
+    this.setupPrefetch();
 
     document.addEventListener("click", (e) => {
       const link = e.target.closest("a");
@@ -36,6 +45,7 @@ class Router {
 
     window.addEventListener("popstate", () => {
       const path = window.location.pathname;
+
       if (this.isTransitioning) {
         this.abortTransition();
         this.loadPageInstantly(path);
@@ -43,6 +53,62 @@ class Router {
         this.handlePopstate(path);
       }
     });
+  }
+
+  setupPrefetch() {
+    const prefetchedPaths = new Set();
+
+    document.addEventListener("mouseover", (e) => {
+      if (!e.target?.closest) return;
+
+      const link = e.target.closest("a");
+      if (!link?.href) return;
+      if (!link.href.startsWith(window.location.origin)) return;
+
+      const path = new URL(link.href).pathname;
+      if (path === window.location.pathname) return;
+      if (prefetchedPaths.has(path)) return;
+
+      this.prefetch(path);
+      prefetchedPaths.add(path);
+    });
+  }
+
+  async prefetch(path) {
+    if (this.cache.has(path)) return;
+
+    const route = routes[path];
+    if (!route) return;
+
+    try {
+      const pageModule = await route.loader();
+      this.cache.set(path, {
+        module: pageModule,
+        namespace: route.namespace,
+      });
+    } catch (error) {
+      this.cache.delete(path);
+    }
+  }
+
+  runEnterAnimation(container, delay = 0) {
+    const enterData = enterModule.default(container, delay);
+
+    if (!enterData?.tweens) return;
+
+    const tl = gsap.timeline({ defaults: { force3D: true } });
+
+    enterData.tweens.forEach((tween) => {
+      tl.to(tween.target, tween.vars, tween.position);
+    });
+
+    if (enterData?.splitInstance) {
+      tl.eventCallback("onComplete", () => {
+        container._splitInstance = enterData.splitInstance;
+      });
+    }
+
+    return tl;
   }
 
   async loadInitialPage() {
@@ -57,8 +123,10 @@ class Router {
     container.setAttribute("data-namespace", route.namespace);
 
     if (pageModule.init) {
-      pageModule.init();
+      pageModule.init({ container });
     }
+
+    this.runEnterAnimation(container, 0);
 
     this.currentPage = pageModule;
     this.currentNamespace = route.namespace;
@@ -77,18 +145,14 @@ class Router {
   async handlePopstate(path) {
     await this.performTransition(path);
   }
-  rs;
+
   abortTransition() {
     if (this.abortController) {
       this.abortController.abort();
       this.abortController = null;
     }
 
-    import("../transitions/pageTransition.js").then(
-      ({ killActiveTimeline }) => {
-        killActiveTimeline();
-      },
-    );
+    executeTransitionModule.killActiveTimeline();
 
     this.isTransitioning = false;
   }
@@ -101,7 +165,15 @@ class Router {
       this.currentPage.cleanup();
     }
 
-    const pageModule = await route.loader();
+    let pageData = this.cache.get(path);
+
+    if (!pageData) {
+      const pageModule = await route.loader();
+      pageData = {
+        module: pageModule,
+        namespace: route.namespace,
+      };
+    }
 
     const wrapper = document.querySelector('[data-transition="wrapper"]');
     const allContainers = wrapper.querySelectorAll(
@@ -121,23 +193,25 @@ class Router {
 
     const content = container.querySelector("#page_content");
     if (content) {
-      content.innerHTML = pageModule.default();
+      content.innerHTML = pageData.module.default();
     } else {
-      container.innerHTML = `<main id="page_content" class="page_content">${pageModule.default()}</main>`;
+      container.innerHTML = `<main id="page_content" class="page_content">${pageData.module.default()}</main>`;
     }
 
-    container.setAttribute("data-namespace", route.namespace);
+    container.setAttribute("data-namespace", pageData.namespace);
 
-    if (pageModule.init) {
-      pageModule.init();
+    if (pageData.module.init) {
+      pageData.module.init({ container });
     }
 
-    this.currentPage = pageModule;
-    this.currentNamespace = route.namespace;
+    this.runEnterAnimation(container, 0);
+
+    this.currentPage = pageData.module;
+    this.currentNamespace = pageData.namespace;
 
     window.dispatchEvent(
       new CustomEvent("route-changed", {
-        detail: { path, namespace: route.namespace },
+        detail: { path, namespace: pageData.namespace },
       }),
     );
 
@@ -153,31 +227,38 @@ class Router {
     try {
       const route = routes[path] || routes["/"];
 
-      if (!route || this.currentNamespace === route.namespace) return;
+      if (!route) return;
+
+      if (this.currentNamespace === route.namespace) return;
 
       if (this.currentPage?.cleanup) {
         this.currentPage.cleanup();
       }
 
-      const pageModule = await route.loader();
+      let pageData = this.cache.get(path);
 
-      const { executeTransition } =
-        await import("../transitions/pageTransition.js");
+      if (!pageData) {
+        const pageModule = await route.loader();
+        pageData = {
+          module: pageModule,
+          namespace: route.namespace,
+        };
+      }
 
-      await executeTransition({
+      await executeTransitionModule.executeTransition({
         currentNamespace: this.currentNamespace,
-        nextNamespace: route.namespace,
-        nextHTML: pageModule.default(),
-        nextModule: pageModule,
+        nextNamespace: pageData.namespace,
+        nextHTML: pageData.module.default(),
+        nextModule: pageData.module,
         signal: this.abortController.signal,
       });
 
-      this.currentPage = pageModule;
-      this.currentNamespace = route.namespace;
+      this.currentPage = pageData.module;
+      this.currentNamespace = pageData.namespace;
 
       window.dispatchEvent(
         new CustomEvent("route-changed", {
-          detail: { path, namespace: route.namespace },
+          detail: { path, namespace: pageData.namespace },
         }),
       );
     } finally {

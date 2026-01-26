@@ -1,5 +1,4 @@
 import { gsap } from "../lib/index.js";
-import ENTER from "../animations/Enter.js";
 import { getTransition } from "./registry.js";
 
 let activeTimeline = null;
@@ -56,6 +55,10 @@ export async function executeTransition({
     throw new DOMException("Transition aborted", "AbortError");
   }
 
+  if (nextModule.init) {
+    nextModule.init({ container: nextContainer });
+  }
+
   const transitionFn = getTransition(currentNamespace, nextNamespace);
 
   activeTimeline = await transitionFn(currentContainer, nextContainer);
@@ -83,14 +86,12 @@ export async function executeTransition({
   currentContainer.remove();
   gsap.set(nextContainer, { clearProps: "all" });
 
-  if (nextModule.init) {
-    nextModule.init();
-  }
-
   const finalContainer = document.querySelector(
     '[data-transition="container"]',
   );
   finalContainer.setAttribute("data-namespace", nextNamespace);
 
   window.scrollTo(0, 0);
+
+  console.log("🎉 Transition flow complete");
 }

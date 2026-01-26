@@ -1,62 +1,48 @@
 import { wrap_chars, wrap_lines } from "../helpers/wrap";
 import { gsap, SplitText, customEases } from "../lib";
 
-const ENTER = (nextContainer) => {
-  const t = nextContainer.querySelector("h1");
-  const co = nextContainer.querySelector(".page_content");
-  const ps = nextContainer.querySelector(".p_anim");
+const ENTER = (nextContainer, delay = 0) => {
+  const t = nextContainer?.querySelector("h1") || document.querySelector("h1");
+  const img =
+    nextContainer?.querySelector(".img_hero") ||
+    document.querySelector(".img_hero");
 
-  if (!t) return;
+  if (!t) return [];
 
-  const tl = gsap.timeline({
-    defaults: {
-      force3D: true,
-    },
-  });
   gsap.set(t, { opacity: 1 });
 
   const s = new SplitText(t, { type: "chars" });
-  const p = new SplitText(ps, { type: "lines" });
 
   wrap_chars(s, true);
-  wrap_lines(p);
 
-  tl.to(
-    s.chars,
-    {
+  const tweens = [];
+
+  tweens.push({
+    target: s.chars,
+    vars: {
       rotateX: 0,
       y: 0,
-      duration: 1.2,
+      duration: 1.9,
       stagger: {
-        each: 0.036,
-        ease: "power1.inOut",
+        each: 0.032,
       },
-      ease: "power3.out",
+      ease: "expo.out",
     },
-    0.3,
-  )
-    .to(
-      co,
-      {
-        y: 0,
-        duration: 1.4,
+    position: delay,
+  });
+  tweens.push({
+    target: img,
+    vars: {
+      y: 0,
 
-        ease: customEases.pageTransition,
-      },
-      0,
-    )
+      duration: 1.9,
 
-    .to(
-      p.lines,
-      {
-        y: 0,
+      ease: "expo.out",
+    },
+    position: delay,
+  });
 
-        stagger: 0.06,
-        duration: 1.8,
-        force3D: true,
-        ease: "power3.out",
-      },
-      0.45,
-    );
+  return { tweens, splitInstance: s };
 };
+
 export default ENTER;

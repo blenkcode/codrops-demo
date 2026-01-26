@@ -1,68 +1,64 @@
 import { gsap, customEases } from "../../lib/index.js";
 import ENTER from "../../animations/Enter.js";
+
 export async function defaultTransition(currentContainer, nextContainer) {
   const content = nextContainer.querySelector("#page_content");
 
   gsap.set(nextContainer, {
-    clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+    clipPath: "inset(100% 0% 0% 0%)",
     opacity: 1,
     position: "fixed",
     top: 0,
     left: 0,
-    willChange: "clip-path",
     width: "100%",
     height: "100vh",
     zIndex: 10,
+    willChange: "transform, clip-path",
   });
 
-  gsap.set(content, { y: "40vh", force3D: true });
+  // gsap.set(content, {
+  //   y: "40vh",
+  //   force3D: true,
+  //   willChange: "transform",
+  // });
 
-  const tl = gsap.timeline();
+  const enterData = ENTER(nextContainer, 0.4);
+
+  const tl = gsap.timeline({ defaults: { force3D: true } });
 
   tl.to(
     currentContainer,
     {
       y: "-30vh",
-      duration: 1.3,
-      force3D: true,
+      opacity: 0.4,
+      duration: 0.8,
       ease: customEases.pageTransition,
     },
     0,
   )
-    .to(
-      currentContainer,
-      {
-        opacity: 0.25,
-        duration: 0.6,
-        force3D: true,
-        ease: "none",
-      },
-      0,
-    )
 
-    .to(
-      content,
-      {
-        y: 0,
-        duration: 1.3,
-        force3D: true,
-        ease: customEases.pageTransition,
-      },
-      0,
-    )
     .to(
       nextContainer,
       {
-        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-        duration: 1.3,
+        clipPath: "inset(0% 0% 0% 0%)",
+        duration: 0.8,
         force3D: true,
         ease: customEases.pageTransition,
       },
       0,
     );
-  tl.add(() => {
-    ENTER(nextContainer);
-  }, 0);
+
+  if (enterData?.tweens) {
+    enterData.tweens.forEach((tween) => {
+      tl.to(tween.target, tween.vars, tween.position);
+    });
+  }
+
+  if (enterData?.splitInstance) {
+    tl.eventCallback("onComplete", () => {
+      nextContainer._splitInstance = enterData.splitInstance;
+    });
+  }
 
   return tl;
 }

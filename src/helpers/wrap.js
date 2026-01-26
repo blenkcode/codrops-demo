@@ -3,11 +3,13 @@ import { gsap } from "../lib/index";
 export function wrap_lines(el) {
   el.lines.forEach((line) => {
     const wrapper = document.createElement("div");
-    wrapper.style.overflow = "hidden";
-    wrapper.style.lineHeight = "100%";
-    wrapper.style.transform = "translateZ(0)";
-    wrapper.style.backfaceVisibility = "hidden";
-    wrapper.style.marginBottom = "0.1rem";
+    wrapper.style.cssText = `
+      overflow: hidden;
+      line-height: 100%;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      margin-bottom: 0.1rem;
+    `;
     line.parentNode.insertBefore(wrapper, line);
     wrapper.appendChild(line);
   });
@@ -21,22 +23,25 @@ export function wrap_lines(el) {
 }
 
 export function wrap_chars(el, z) {
-  el.chars.forEach((char, index) => {
+  el.chars.forEach((char) => {
     const wrapper = document.createElement("span");
-    wrapper.style.overflow = "hidden";
-    wrapper.style.transform = "translateZ(0)";
-    wrapper.style.backfaceVisibility = "hidden";
-    wrapper.style.display = "inline-block";
-    wrapper.style.backfaceVisibility = "hidden";
-    wrapper.style.perspective = "1000px";
+    wrapper.style.cssText = `
+      overflow: hidden;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      display: inline-block;
+      perspective: 1000px;
+    `;
+    wrapper.classList.add("char-wrapper");
     char.parentNode.insertBefore(wrapper, char);
     wrapper.appendChild(char);
   });
+
   if (z) {
     gsap.set(el.chars, {
       y: "70%",
       force3D: true,
-      rotateX: 90,
+      rotateX: 80,
       willChange: "transform",
     });
   } else {

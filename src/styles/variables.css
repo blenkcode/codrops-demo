@@ -1,6 +1,13 @@
 h1 {
-  font-size: 8vw;
+  font-size: 15vw;
+  overflow: hidden;
+
+  padding-top: 8vw;
 }
 .overflow {
   overflow: hidden;
+}
+
+.title {
+  transform: translateY(100%) rotateX(80deg);
 }
