@@ -1,5 +1,5 @@
 import { gsap } from "../lib/index.js";
-
+import { updateMetaTags } from '../seo/metadata.js';
 const routes = {
   "/": {
     namespace: "home",
@@ -130,6 +130,7 @@ class Router {
 
     this.currentPage = pageModule;
     this.currentNamespace = route.namespace;
+       updateMetaTags(pageData.namespace);
   }
 
   async navigate(path) {
@@ -208,7 +209,7 @@ class Router {
 
     this.currentPage = pageData.module;
     this.currentNamespace = pageData.namespace;
-
+   updateMetaTags(pageData.namespace);
     window.dispatchEvent(
       new CustomEvent("route-changed", {
         detail: { path, namespace: pageData.namespace },
@@ -255,7 +256,7 @@ class Router {
 
       this.currentPage = pageData.module;
       this.currentNamespace = pageData.namespace;
-
+   updateMetaTags(pageData.namespace);
       window.dispatchEvent(
         new CustomEvent("route-changed", {
           detail: { path, namespace: pageData.namespace },

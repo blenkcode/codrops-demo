@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://ton-site.com/sitemap.xml
+
+# Disallow admin areas (si tu en as)
+Disallow: /admin/
+Disallow: /private/
+
+# Allow CSS and JS
+Allow: /css/
+Allow: /js/
+Allow: /images/
