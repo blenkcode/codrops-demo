@@ -19,6 +19,7 @@ p {
   margin-inline-start: 0;
   margin-inline-end: 0;
   line-height: 100%;
+  font-size: 13px;
 }
 button {
   border: none;
@@ -45,14 +46,15 @@ a {
   -webkit-tap-highlight-color: transparent;
   text-decoration: none;
 }
-li{
+li {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-ul{
+ul {
   padding: 0;
-  margin:0;
+  margin: 0;
+  flex: 1;
 }
 .sr-only {
   position: absolute;

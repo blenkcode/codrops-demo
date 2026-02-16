@@ -1,0 +1,46 @@
+src/
+├── animations/          # Transition animation definitions
+├── components/          # Web Components (header, etc.)
+├── js/
+│   ├── main.js          # Entry point
+│   └── router.js        # SPA Router
+├── lib/                 # GSAP & dependencies
+├── pages/
+│   ├── home/
+│   │   ├── home.html    # Home page template
+│   │   └── home.js      # Home page module
+│   └── about/
+│       ├── about.html   # About page template
+│       └── about.js     # About page module
+├── styles/              # CSS
+├── transitions/
+│   ├── animations/      # Transition animation functions
+│   ├── pageTransition.js # Transition execution engine
+│   └── registry.js      # Transition mapping
+└── style.css
+
+
+yourproject/
+├── node_modules/         
+├── public/         
+├── src/
+│   ├── main.js         
+│   └── style.css        
+├── gitignore
+├── index.html
+├── package-lock.json
+└── package.json
+
+├── pages/
+│   ├── home/
+│   │   ├── home.html    
+│   │   └── home.js     
+│   └── about/
+│       ├── about.html  
+│       └── about.js    
+
+├── transitions/
+│   ├── animations/
+│   │   └── default.js     
+│   └── pageTransitions.js
+  

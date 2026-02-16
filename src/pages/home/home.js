@@ -6,8 +6,10 @@ export default function HomePage() {
 }
 
 export function init(options = {}) {
-  const container = options.container || document.querySelector('[data-transition="container"]');
-  
+  const container =
+    options.container ||
+    document.querySelector('[data-transition="container"]');
+
   const enterData = ENTER(container, 0.45);
 
   if (enterData?.splitInstance) {

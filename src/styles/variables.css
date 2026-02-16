@@ -1,8 +1,7 @@
 h1 {
-  font-size: 15vw;
+  font-size: 30vh;
   overflow: hidden;
-
-  padding-top: 8vw;
+  padding-top: 12vh;
 }
 .overflow {
   overflow: hidden;

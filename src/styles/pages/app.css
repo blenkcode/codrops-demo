@@ -6,20 +6,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-justify-content: center;
+  justify-content: center;
 }
 .p_anim {
-  font-size: 12px;
 }
 
 .hero_content {
   width: 100%;
   margin-bottom: 20px;
   display: flex;
-align-items: end;
+  align-items: end;
 
-   justify-content: space-between;
- 
+  justify-content: space-between;
 }
 
 .hero {
@@ -27,54 +25,48 @@ align-items: end;
   flex-direction: column;
   align-items: center;
 
- width: 100%;
+  width: 100%;
   justify-content: space-between;
   height: 100vh;
 }
-.img_hero {
-  transform: translateY(150%) translateZ(0);
-  width: 20vw;
-}
-.hero_content li{
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    position: relative;
-    padding: 10px 0;
-    font-size: 12px;
-    text-transform: uppercase;
-     
-}
-.anim_p{
-    opacity: 0;
-}
-.lines{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 1px;
-    overflow: hidden;
-}
-.inner_lines{
-    background-color: black;
-    width: 100%;
-    height: 100%;
 
+.hero_content li {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  position: relative;
+  padding: 10px 0;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.anim_p {
+  opacity: 0;
+}
+.lines {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  overflow: hidden;
+}
+.inner_lines {
+  background-color: black;
+  width: 100%;
+  height: 100%;
 }
 
-.inner_linesright{
-    transform: translateX(-100%);
+.inner_linesright {
+  transform: translateX(-100%);
 }
 
-.inner_linesleft{
-    transform: translateX(100%);
+.inner_linesleft {
+  transform: translateX(100%);
 }
 .hero_content ul {
-    width: 100%;
-        width: 40vw;
-     
-        padding: 0 20px;
+  width: 100%;
+  width: 40vw;
 
+  padding: 0 20px;
 }
 
 .inner_linesright,
@@ -83,12 +75,24 @@ align-items: end;
   backface-visibility: hidden;
   perspective: 1000px;
 }
-
 .img_hero {
+  transform: translateY(150%) translateZ(0);
+  width: 15vh;
+}
+.img_hero {
+  transform: translateZ(0);
+
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+.img_hero_small {
   transform: translateZ(0);
   backface-visibility: hidden;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
+
+  width: 35vh;
 }
 
 .anim_p {
@@ -106,3 +110,11 @@ h1 {
   transform: translateZ(0);
 }
 
+.img_c {
+  width: 100%;
+  position: fixed;
+  height: 100vh;
+  opacity: 15%;
+  filter: grayscale(100%);
+  mix-blend-mode: difference;
+}

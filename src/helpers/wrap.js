@@ -39,9 +39,9 @@ export function wrap_chars(el, z) {
 
   if (z) {
     gsap.set(el.chars, {
-      y: "70%",
+      y: "90%",
       force3D: true,
-      rotateX: 80,
+      rotateX: 90,
       willChange: "transform",
     });
   } else {
