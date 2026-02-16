@@ -22,35 +22,24 @@ export function wrap_lines(el) {
   });
 }
 
-export function wrap_chars(el, z) {
-  el.chars.forEach((char) => {
-    const wrapper = document.createElement("span");
-    wrapper.style.cssText = `
-      overflow: hidden;
-      transform: translateZ(0);
-      backface-visibility: hidden;
-      display: inline-block;
-      perspective: 1000px;
-    `;
-    wrapper.classList.add("char-wrapper");
-    char.parentNode.insertBefore(wrapper, char);
-    wrapper.appendChild(char);
-  });
+export function wrap_chars(el) {
+  // el.chars.forEach((char) => {
+  //   const wrapper = document.createElement("span");
+  //   wrapper.style.cssText = `
+  //     overflow-y: hidden;
+  //     perspective: 1000px;
+  //     background-color:aqua;
+  //   `;
+  //   wrapper.classList.add("char-wrapper");
+  //   char.parentNode.insertBefore(wrapper, char);
+  //   wrapper.appendChild(char);
+  // });
 
-  if (z) {
-    gsap.set(el.chars, {
-      y: "90%",
-      force3D: true,
-      rotateX: 90,
-      willChange: "transform",
-    });
-  } else {
-    gsap.set(el.chars, {
-      y: "100%",
-      force3D: true,
-      willChange: "transform",
-    });
-  }
+  gsap.set(el.chars, {
+    y: "100%",
+    force3D: true,
+    rotateX: 60,
+  });
 }
 
 export default { wrap_lines, wrap_chars };

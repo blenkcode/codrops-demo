@@ -1,8 +1,7 @@
 import { gsap } from "../lib/index.js";
 import { getTransition } from "./registry.js";
-
+import { defaultTransition } from "./animations/default.js";
 export async function executeTransition({
-  currentNamespace,
   nextNamespace,
   nextHTML,
   nextModule,
@@ -22,18 +21,32 @@ export async function executeTransition({
   nextContainer.appendChild(content);
 
   wrapper.appendChild(nextContainer);
+  const images = nextContainer.querySelectorAll("img");
+  if (images.length > 0) {
+    await Promise.all(
+      Array.from(images).map(
+        (img) =>
+          new Promise((resolve) => {
+            if (img.complete) return resolve();
+            img.onload = resolve;
+            img.onerror = resolve;
+          }),
+      ),
+    );
+  }
 
   if (nextModule.init) {
     nextModule.init({ container: nextContainer });
   }
 
-  const transitionFn = getTransition(currentNamespace, nextNamespace);
-  const timeline = await transitionFn(currentContainer, nextContainer);
+  // const transitionFn = getTransition(currentNamespace, nextNamespace);
+  const timeline = await defaultTransition(currentContainer, nextContainer);
 
   await timeline.then();
 
   currentContainer.remove();
-  gsap.set(nextContainer, { clearProps: "all" });
-  gsap.set(nextContainer, { force3D: true });
-  window.scrollTo(0, 0);
+  gsap.set(nextContainer, {
+    clearProps: "clipPath,position,top,left,width,height,zIndex,opacity",
+    force3D: true,
+  });
 }

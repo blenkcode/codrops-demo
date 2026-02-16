@@ -10,7 +10,6 @@ export function defaultTransition(currentContainer, nextContainer) {
     width: "100%",
     height: "100vh",
     zIndex: 10,
-    willChange: "transform, clip-path",
   });
 
   const tl = gsap.timeline();
@@ -20,7 +19,7 @@ export function defaultTransition(currentContainer, nextContainer) {
     {
       y: "-30vh",
       opacity: 0.4,
-      duration: 0.75,
+      duration: 0.7,
       force3D: true,
       ease: customEases.pageTransition,
     },
@@ -31,7 +30,7 @@ export function defaultTransition(currentContainer, nextContainer) {
       nextContainer,
       {
         clipPath: "inset(0% 0% 0% 0%)",
-        duration: 0.75,
+        duration: 0.7,
         force3D: true,
 
         ease: customEases.pageTransition,

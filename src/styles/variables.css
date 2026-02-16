@@ -1,7 +1,18 @@
 h1 {
-  font-size: 30vh;
   overflow: hidden;
-  padding-top: 12vh;
+
+  padding-left: 1vw;
+  padding-right: 1vw;
+
+  line-height: 82%;
+}
+
+.home_title {
+  font-size: 29vw;
+}
+
+.about_title {
+  font-size: 27.2vw;
 }
 .overflow {
   overflow: hidden;
@@ -9,4 +20,8 @@ h1 {
 
 .title {
   transform: translateY(100%) rotateX(80deg);
+}
+[data-transition="container"] {
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }

@@ -6,9 +6,11 @@ export default function AboutPage() {
 }
 
 export function init(options = {}) {
-  const container = options.container || document.querySelector('[data-transition="container"]');
-  
-  const enterData = ENTER(container, 0.45);
+  const container =
+    options.container ||
+    document.querySelector('[data-transition="container"]');
+
+  const enterData = ENTER(container, 0.32);
 
   if (enterData?.splitInstance) {
     container._splitInstance = enterData.splitInstance;

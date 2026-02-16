@@ -1,63 +1,59 @@
-import { wrap_chars } from "../helpers/wrap";
-import { gsap, SplitText } from "../lib";
+import { wrap_chars, wrap_lines } from "../helpers/wrap";
+import { customEases, gsap, SplitText } from "../lib";
 
 const ENTER = (nextContainer, delay = 0) => {
   const t = nextContainer?.querySelector("h1") || document.querySelector("h1");
-  const img =
-    nextContainer?.querySelector(".img_hero_small") ||
-    document.querySelector(".img_hero_small");
-  // const linesRight =
-  //   nextContainer?.querySelectorAll(".inner_linesright") ||
-  //   document.querySelectorAll(".inner_linesright");
-  // const ps =
-  //   nextContainer?.querySelectorAll(".anim_p") ||
-  //   document.querySelectorAll(".anim_p");
-  // const linesLeft =
-  //   nextContainer?.querySelectorAll(".inner_linesleft") ||
-  //   document.querySelectorAll(".inner_linesleft");
+  const content =
+    nextContainer?.querySelector(".hero_content") ||
+    document.querySelector(".hero_content");
+  const linesRight =
+    nextContainer?.querySelectorAll(".inner_linesright") ||
+    document.querySelectorAll(".inner_linesright");
+  const ps =
+    nextContainer?.querySelectorAll(".anim_p") ||
+    document.querySelectorAll(".anim_p");
+  const ps2 =
+    nextContainer?.querySelectorAll(".anim_p2") ||
+    document.querySelectorAll(".anim_p2");
+  const linesLeft =
+    nextContainer?.querySelectorAll(".inner_linesleft") ||
+    document.querySelectorAll(".inner_linesleft");
 
-  const background =
-    nextContainer?.querySelectorAll(".img_c") ||
-    document.querySelectorAll(".img_c");
-
-  if (!t || !img) return null;
+  if (!t) return null;
 
   gsap.set(t, { opacity: 1 });
 
   const s = new SplitText(t, { type: "chars" });
+  const p = new SplitText(ps, { type: "lines" });
+  const ptwo = new SplitText(ps2, { type: "lines" });
+  wrap_chars(s);
+  wrap_lines(p);
+  wrap_lines(ptwo);
+  // gsap.set(img, {
+  //   y: "120%",
+  //   force3D: true,
+  //   willChange: "transform",
+  //   backfaceVisibility: "hidden",
+  // });
 
-  wrap_chars(s, true);
-
-  gsap.set(img, {
-    y: "120%",
-    force3D: true,
-    willChange: "transform",
-    backfaceVisibility: "hidden",
-  });
-
-  gsap.set(background, {
-    scale: 1.45,
-    willChange: "transform",
-    force3D: true,
-  });
   // gsap.set(ps, {
   //   opacity: 0,
   //   willChange: "opacity",
   // });
-  // gsap.set(linesRight, {
-  //   x: "-100%",
-  //   force3D: true,
-  //   willChange: "transform",
-  //   backfaceVisibility: "hidden",
-  // });
+  gsap.set(linesRight, {
+    x: "-100%",
+    force3D: true,
 
-  // gsap.set(linesLeft, {
-  //   x: "100%",
-  //   force3D: true,
-  //   willChange: "transform",
-  //   backfaceVisibility: "hidden",
-  // });
+    backfaceVisibility: "hidden",
+  });
 
+  gsap.set(linesLeft, {
+    x: "-100%",
+    force3D: true,
+
+    backfaceVisibility: "hidden",
+  });
+  gsap.set(content, { opacity: 1 });
   const tl = gsap.timeline({
     defaults: {
       force3D: true,
@@ -72,87 +68,66 @@ const ENTER = (nextContainer, delay = 0) => {
       y: 0,
       force3D: true,
       duration: 2.1,
-      stagger: 0.032,
+      stagger: 0.035,
       ease: "expo.out",
-      immediateRender: false,
     },
     delay,
   )
     .to(
-      img,
+      p.lines,
       {
         y: 0,
-        duration: 1.75,
-        force3D: true,
-        ease: "expo.out",
-        immediateRender: false,
-        onComplete: () => {
-          gsap.set(img, { clearProps: "willChange" });
+        duration: 1.65,
+        stagger: {
+          amount: 0.08,
+          from: "end",
         },
-      },
-      delay,
-    )
-    // .to(
-    //   ps,
-    //   {
-    //     opacity: 1,
-    //     duration: 0.7,
-    //     ease: "none",
-    //     immediateRender: false,
-    //     onComplete: () => {
-    //       gsap.set(ps, { clearProps: "willChange" });
-    //     },
-    //   },
-    //   0.9,
-    // )
-    .to(
-      background,
-      {
-        scale: 1,
-        duration: 1.95,
         force3D: true,
         ease: "power3.out",
-        immediateRender: false,
-        onComplete: () => {
-          gsap.set(background, { clearProps: "willChange" });
+      },
+      delay + 0.2,
+    )
+    .to(
+      ptwo.lines,
+      {
+        y: 0,
+        duration: 1.65,
+        stagger: {
+          amount: 0.08,
+          from: "end",
         },
+        force3D: true,
+        ease: "power3.out",
+      },
+      delay + 0.2,
+    )
+
+    .to(
+      linesRight,
+      {
+        x: 0,
+        duration: 1,
+        stagger: {
+          amount: 0.25,
+          from: "start",
+        },
+        ease: "power2.inOut",
+      },
+      0,
+    )
+    .to(
+      linesLeft,
+      {
+        x: 0,
+        duration: 1,
+        stagger: {
+          amount: 0.25,
+          from: "start",
+        },
+        ease: "power2.inOut",
       },
       0,
     );
-  // .to(
-  //   linesRight,
-  //   {
-  //     x: 0,
-  //     duration: 1.5,
-  //     stagger: {
-  //       amount: 0.3,
-  //       from: "end",
-  //     },
-  //     ease: "expo.out",
-  //     immediateRender: false,
-  //     onComplete: () => {
-  //       gsap.set(linesRight, { clearProps: "willChange" });
-  //     },
-  //   },
-  //   0,
-  // )
-  // .to(
-  //   linesLeft,
-  //   {
-  //     x: 0,
-  //     duration: 1.5,
-  //     stagger: {
-  //       amount: 0.3,
-  //       from: "end",
-  //     },
-  //     ease: "expo.out",
-  //     immediateRender: false,
-  //     onComplete: () => {
-  //       gsap.set(linesLeft, { clearProps: "willChange" });
-  //     },
-  //   },
-  //   0,
-  // );
 
   return { timeline: tl, splitInstance: s };
 };
