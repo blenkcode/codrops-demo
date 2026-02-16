@@ -22,7 +22,7 @@ class Header extends HTMLElement {
         <link-c href="/">Home</link-c>
          </div>
          <div class="overflow">
-        <link-c href="/about">About</link-c>
+        <link-c href="/alternative-page">Alternative page</link-c>
         </div>
       </nav>
     `;

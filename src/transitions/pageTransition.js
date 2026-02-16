@@ -1,7 +1,8 @@
 import { gsap } from "../lib/index.js";
+
 import { getTransition } from "./registry.js";
-import { defaultTransition } from "./animations/default.js";
 export async function executeTransition({
+  currentNamespace,
   nextNamespace,
   nextHTML,
   nextModule,
@@ -39,8 +40,8 @@ export async function executeTransition({
     nextModule.init({ container: nextContainer });
   }
 
-  // const transitionFn = getTransition(currentNamespace, nextNamespace);
-  const timeline = await defaultTransition(currentContainer, nextContainer);
+  const transitionFn = getTransition(currentNamespace, nextNamespace);
+  const timeline = await transitionFn(currentContainer, nextContainer);
 
   await timeline.then();
 

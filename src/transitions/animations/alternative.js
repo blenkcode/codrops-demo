@@ -1,8 +1,7 @@
 import { gsap, customEases } from "../../lib/index.js";
 
-export function defaultTransition(currentContainer, nextContainer) {
+export function alternativeTransition(currentContainer, nextContainer) {
   gsap.set(nextContainer, {
-    clipPath: "inset(100% 0% 0% 0%)",
     opacity: 1,
     position: "fixed",
     top: 0,
@@ -10,6 +9,7 @@ export function defaultTransition(currentContainer, nextContainer) {
     left: 0,
     width: "100%",
     height: "100vh",
+    x: "100%",
     zIndex: 10,
   });
 
@@ -18,12 +18,12 @@ export function defaultTransition(currentContainer, nextContainer) {
   tl.to(
     currentContainer,
     {
-      y: "-30vh",
-      opacity: 0.4,
+      x: "-50%",
       scale: 0.8,
-      duration: 0.7,
+      opacity: 0.4,
+      duration: 1.5,
       force3D: true,
-      ease: customEases.pageTransition,
+      ease: customEases.pageTransition2,
     },
     0,
   )
@@ -31,11 +31,11 @@ export function defaultTransition(currentContainer, nextContainer) {
     .to(
       nextContainer,
       {
-        clipPath: "inset(0% 0% 0% 0%)",
-        duration: 0.7,
-        force3D: true,
+        x: 0,
+        duration: 1.5,
 
-        ease: customEases.pageTransition,
+        force3D: true,
+        ease: customEases.pageTransition2,
       },
       0,
     );

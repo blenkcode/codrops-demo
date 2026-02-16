@@ -1,9 +1,10 @@
 import { defaultTransition } from "./animations/index";
 
+import { alternativeTransition } from "./animations/alternative.js";
 export const transitionRegistry = {
   "home-to-about": defaultTransition,
 
-  "about-to-home": defaultTransition,
+  "about-to-home": alternativeTransition,
 
   default: defaultTransition,
 };

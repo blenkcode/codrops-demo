@@ -5,7 +5,7 @@ const routes = {
     namespace: "home",
     loader: () => import("./pages/home/home.js"),
   },
-  "/about": {
+  "/alternative-page": {
     namespace: "about",
     loader: () => import("./pages/about/about.js"),
   },

@@ -1,5 +1,7 @@
 html {
   overflow-x: hidden;
+  -webkit-text-size-adjust: none;
+  -webkit-font-smoothing: antialiased;
 }
 h1,
 h2,
