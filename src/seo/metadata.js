@@ -1,15 +1,13 @@
 const metaConfig = {
   home: {
-    title: "Framework",
-    description: "Personnal frontend framework",
-    ogImage: "https://framework-ten-lilac.vercel.app/images/home.webp",
-    // keywords: "portfolio, développeur web, animations, GSAP",
+    title: "Building Asynchronous Page Transitions in Vanilla JavaScript",
+    description: "In this tutorial, we'll build a lightweight async page transition system from scratch using vanilla JavaScript, GSAP, and Vite",
+
   },
   about: {
-  title: "Framework",
-    description: "Personnal frontend framework",
-    ogImage: "https://framework-ten-lilac.vercel.app/images/about.webp",
-    // keywords: "à propos, parcours, compétences",
+  title: "Building Asynchronous Page Transitions in Vanilla JavaScript",
+    description: "In this tutorial, we'll build a lightweight async page transition system from scratch using vanilla JavaScript, GSAP, and Vite",
+
   },
  
 };

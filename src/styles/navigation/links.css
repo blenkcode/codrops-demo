@@ -15,3 +15,4 @@
   transform: translateX(-100%) translateZ(0);
   will-change: transform;
 }
+@media (max-width: 900px) {}

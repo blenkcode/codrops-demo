@@ -23,9 +23,9 @@ const ENTER = (nextContainer, delay = 0) => {
 
   gsap.set(t, { opacity: 1 });
 
-  const s = new SplitText(t, { type: "chars" });
-  const p = new SplitText(ps, { type: "lines" });
-  const ptwo = new SplitText(ps2, { type: "lines" });
+  const s = new SplitText(t, { type: "chars",  aria: false  });
+  const p = new SplitText(ps, { type: "lines",  aria: false  });
+  const ptwo = new SplitText(ps2, { type: "lines" ,  aria: false });
   wrap_chars(s);
   wrap_lines(p);
   wrap_lines(ptwo);
@@ -59,6 +59,7 @@ const ENTER = (nextContainer, delay = 0) => {
       force3D: true,
       lazy: false,
     },
+    
   });
 
   tl.to(
@@ -85,7 +86,7 @@ const ENTER = (nextContainer, delay = 0) => {
         force3D: true,
         ease: "power3.out",
       },
-      delay + 0.2,
+     window.innerWidth<900 ? delay: delay + 0.2,
     )
     .to(
       ptwo.lines,

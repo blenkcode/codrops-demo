@@ -1,27 +1,30 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Framework</title>
-    <meta name="description" content="Personnal frontend framework" />
-    <link rel="icon" href="/icons/favicon.ico" sizes="any" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#ffffff" />
-    <meta name="msapplication-TileColor" content="#ffffff" />
-  </head>
 
-  <body>
-    <div id="app">
-      <header-c></header-c>
-      <div data-transition="wrapper">
-        <div data-transition="container" data-namespace="home">
-          <main id="page_content" class="page_content"></main>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building Asynchronous Page Transitions in Vanilla JavaScript</title>
+  <meta name="description" content="In this tutorial, we'll build a lightweight async page transition system from scratch using vanilla JavaScript, GSAP, and Vite.
+" />
+  <link rel="icon" href="/icons/favicon.ico" sizes="any" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="msapplication-TileColor" content="#ffffff" />
+</head>
+
+<body>
+  <div id="app">
+    <header-c></header-c>
+    <div data-transition="wrapper">
+      <div data-transition="container" data-namespace="home">
+        <main id="page_content" class="page_content"></main>
       </div>
     </div>
+  </div>
 
-    <script type="module" src="/src/main.js"></script>
-  </body>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
 </html>

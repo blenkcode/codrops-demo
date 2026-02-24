@@ -47,7 +47,7 @@ class Link extends HTMLElement {
     const current = normalize(currentPath);
     const target = normalize(href);
 
-    if (current.startsWith("mail:to")) {
+    if (current.startsWith("mail:to") || current.startWidth("https://")) {
       return false;
     }
 
@@ -78,7 +78,7 @@ class Link extends HTMLElement {
   }
 
   handleClick(e) {
-    const line = this.querySelector(".line_a_inner");
+   
 
     if (this.isSamePage()) {
       e.preventDefault();
