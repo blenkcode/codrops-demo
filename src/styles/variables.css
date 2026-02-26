@@ -8,11 +8,11 @@ h1 {
 }
 
 .home_title {
-  font-size: 29vw;
+  font-size: 26vw;
 }
 
 .about_title {
-  font-size: 27.2vw;
+  font-size: 26vw;
 }
 .overflow {
   overflow: hidden;
@@ -21,7 +21,7 @@ h1 {
 .title {
   transform: translateY(100%) rotateX(80deg);
 }
-[data-transition="container"] {
+[data-transition='container'] {
   transform: translateZ(0);
   backface-visibility: hidden;
 }

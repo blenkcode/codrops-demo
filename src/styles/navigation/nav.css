@@ -8,25 +8,23 @@
   padding: 20px 0;
   z-index: 50;
   justify-content: center;
-  width: fit-content
-
+  width: fit-content;
 }
 
 @media (max-width: 900px) {
   .nav {
-  position: fixed;
-  left: auto;
-  right: 0;
-  transform: none;
-  top: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+    position: fixed;
+    left: auto;
+    right: 0;
+    transform: none;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     font-size: 13px;
-  padding: 20px 20px;
-  z-index: 50;
-align-items: end;
-  width: fit-content
-
-}
+    padding: 20px 20px;
+    z-index: 50;
+    align-items: end;
+    width: fit-content;
+  }
 }

@@ -13,7 +13,7 @@
   display: flex;
   margin-top: 80px;
 }
-dl{
+dl {
   display: flex;
   width: 100%;
 }
@@ -82,7 +82,6 @@ dl{
   perspective: 1000px;
 }
 
-
 .anim_p {
   backface-visibility: hidden;
 }
@@ -98,15 +97,16 @@ h1 {
   transform: translateZ(0);
 }
 
-
-.links_codrops{
+.links_codrops {
   position: absolute;
   top: 20px;
   left: 20px;
+  right: 20px;
   display: flex;
   gap: 20px;
   pointer-events: auto;
   z-index: 20;
+  justify-content: space-between;
 }
 @media (max-width: 900px) {
   .lists_c {
@@ -116,11 +116,11 @@ h1 {
     flex-direction: column;
     margin-top: 80px;
   }
-dl{
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
+  dl {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
   .desktop {
     display: none;
     padding: 0 !important;
@@ -136,16 +136,15 @@ dl{
     padding: 0 20px;
   }
 
-
-.links_codrops{
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  display: flex;
-  flex-direction: column;
-  font-size: 13px;
-  gap: 10px;
-  pointer-events: auto;
-  z-index: 20;
-}
+  .links_codrops {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    gap: 10px;
+    pointer-events: auto;
+    z-index: 20;
+  }
 }
